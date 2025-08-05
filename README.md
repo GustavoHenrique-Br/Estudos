@@ -1,1 +1,1 @@
-Olá estou aprendendo a usar o github
+Olá estou aprendendo a usar o javascript
