@@ -1,0 +1,41 @@
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+button {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    background-color: #067878;
+    color: white;
+    cursor: pointer;
+}
+
+.container {
+    background-color: white;
+    padding: 25px;
+    max-width: 500px;
+}
+
+#lista-tarefa {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
