@@ -16,10 +16,13 @@ function adicionarTarefa(){
             return;
         }       else{
                     const novoItem = document.createElement("li");
-                    novoItem.textContent = textoDaTarefa;
+                    const textoItem = document.createElement("span");
+                    textoItem.textContent = textoDaTarefa
                     listaTarefas.appendChild(novoItem);
                     inputTarefa.value = "";
                     inputTarefa.focus();
+                    const btnExcluir = document.createElement("button");
+                    btnExcluir.textContent = "X"
 
             
         }
