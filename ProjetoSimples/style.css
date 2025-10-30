@@ -41,14 +41,20 @@ li {
     margin-bottom: 5px;
     border-radius: 5px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
-.concluida {
+li span{
+    flex-grow: 1;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.concluida span {
     text-decoration: line-through;
     color: rgb(49, 81, 49);
 }
+
 
 .btn-excluir {
     background: none;
@@ -61,6 +67,8 @@ li {
     color: red;
     font-weight: bold;
 }
+
+
 
 
 

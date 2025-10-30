@@ -20,11 +20,14 @@ function adicionarTarefa(){
             return;
         }       else{
                     const novoItem = document.createElement("li");
+                    const checkList = document.createElement("input");
+                    checkList.type = "checkbox";
                     const textoItem = document.createElement("span");
                     textoItem.textContent = textoDaTarefa
                     const btnExcluir = document.createElement("button");
                         btnExcluir.textContent = "X"
                         btnExcluir.classList.add("btn-excluir");
+                            novoItem.appendChild(checkList)
                             novoItem.appendChild(textoItem);
                             novoItem.appendChild(btnExcluir);
                     listaTarefas.appendChild(novoItem);
@@ -37,7 +40,7 @@ function gerenciarClickLista(event){
     const alvoClick = event.target;
         if (alvoClick.classList.contains("btn-excluir")){
             alvoClick.parentElement.remove();    
-        } else if (alvoClick.tagName === "SPAN"){
+        } else if (alvoClick.type === "checkbox"){
             alvoClick.parentElement.classList.toggle("concluida");
         }
 }
