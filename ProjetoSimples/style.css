@@ -37,5 +37,31 @@ button {
 
 li {
     padding: 12px;
-    border-bottom: 1px solid #eee;
+    border: 1px solid #dddddd;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.concluida {
+    text-decoration: line-through;
+    color: rgb(49, 81, 49);
+}
+
+.btn-excluir {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+}
+
+.btn-excluir:hover{
+    color: red;
+    font-weight: bold;
+}
+
+
+
+
