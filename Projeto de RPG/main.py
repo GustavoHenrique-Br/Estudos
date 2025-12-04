@@ -1,4 +1,5 @@
 import random
+import json
 
 #Criação do personagem
 class Personagem:
@@ -13,6 +14,20 @@ class Personagem:
         self.inventario = ["Poção", "Poção", "Poção"]
         self.exp_recebido = 0
 
+    def to_dict(self):
+        return {
+            "nome": self.nome,
+            "hp": self.hp,
+            "hp_max": self.hp_max,
+            "ataque máximo": self.ataque,
+            "level": self.level,
+            "exp": self.exp,
+            "exp_maximo": self.exp_max,
+            "inventario": self.inventario
+        }
+    
+    
+    
     #verificação se está vivo
     def esta_vivo(self):
         return self.hp > 0
@@ -63,15 +78,16 @@ class Personagem:
             Ataque Máximo: {self.ataque}
             XP Atual: {self.exp}/{self.exp_max}
             ================================
-            """) 
+            """)
+
 
 def gerar_inimigos(numero_inimigos):
-    lista_inimigos = ["Orc", "Globin", "Dragão", "Golem", "Mutante"]
+    lista_inimigos = ["Orc", "Goblin", "Dragão", "Golem", "Mutante"]
     lista_todos_inimigos = []
     for x in range (numero_inimigos):
         nome_sorteado = random.choice(lista_inimigos)
-        hp_sorteado = random.randint(100, 300)
-        ataque_sorteado = random.randint(5, 30)
+        hp_sorteado = random.randint(100, 200)
+        ataque_sorteado = random.randint(5, 25)
         novo_inimigo = Personagem(nome_sorteado, hp_sorteado, ataque_sorteado)
         lista_todos_inimigos.append(novo_inimigo)
     return lista_todos_inimigos
@@ -79,42 +95,56 @@ def gerar_inimigos(numero_inimigos):
         
 
 heroi = Personagem("Gustavo", 125, 25)
-
+inimigos = gerar_inimigos(5)
 
 
 print("----- ÍNICIO DA BATALHA -----")
 heroi.mostrar_status()
-inimigo.mostrar_status()
 print("-" *50)
 
 #loop do combate
-while heroi.esta_vivo() and inimigo.esta_vivo():
-    print(f"\nTurno de {heroi.nome}")
 
-    try:
-        ação = int(input("----> Atacar inimigo (1) | curar (2)? <---- "))
-    except ValueError:
-        print("Isso não é um número")
+for inimigo in inimigos:
     
-    if ação == 1:
-        heroi.atacar(inimigo)
-    elif ação == 2:
-        heroi.curar()
-    else:
-        print("Digito inválido, escolha 1 ou 2.")
-        continue
-    
-
-    if not inimigo.esta_vivo():
-        print(f"\nVocê venceu a luta, você derrotou {inimigo.nome}")
-        xp_ganho = 130
-        heroi.ganhar_xp(xp_ganho)
-        print(f"Status final: {heroi.nome} [Vida:{heroi.hp}] vs {inimigo.nome} [Vida:{inimigo.hp}]")
-        break
-    print("\nTurno do inimigo...")
-    inimigo.atacar(heroi)
     if not heroi.esta_vivo():
-        print(f"\nVocê perdeu a luta, {inimigo.nome} derrotou você")
-        print(f"Status final: {heroi.nome} [Vida:{heroi.hp}] vs {inimigo.nome} [Vida:{inimigo.hp}]")
-        break   
-    print(f"Status: {heroi.nome} [Vida:{heroi.hp}] vs {inimigo.nome} [Vida:{inimigo.hp}]")
+        break
+    
+    print(f"\n Um {inimigo.nome} selvagem apareceu! (HP: {inimigo.hp})")
+
+    while heroi.esta_vivo() and inimigo.esta_vivo():
+        print(f"\nTurno de {heroi.nome}")
+
+        try:
+            ação = int(input("----> Atacar inimigo (1) | curar (2)? <---- "))
+        except ValueError:
+            print("Isso não é um número")
+        
+        if ação == 1:
+            heroi.atacar(inimigo)
+        elif ação == 2:
+            heroi.curar()
+        else:
+            print("Digito inválido, escolha 1 ou 2.")
+            continue
+        
+
+        if not inimigo.esta_vivo():
+            print(f"\nVocê venceu a luta, você derrotou {inimigo.nome}")
+            xp_ganho = 130
+            heroi.ganhar_xp(xp_ganho)
+            print(f"Status final: {heroi.nome} [Vida:{heroi.hp}] vs {inimigo.nome} [Vida:{inimigo.hp}]")
+            break
+        print("\nTurno do inimigo...")
+        inimigo.atacar(heroi)
+        if not heroi.esta_vivo():
+            print(f"\nVocê perdeu a luta, {inimigo.nome} derrotou você")
+            print(f"Status final: {heroi.nome} [Vida:{heroi.hp}] vs {inimigo.nome} [Vida:{inimigo.hp}]")
+            break   
+        print(f"Status: {heroi.nome} [Vida:{heroi.hp}] vs {inimigo.nome} [Vida:{inimigo.hp}]")
+if heroi.esta_vivo():
+    print("PARÁBENS! Você derrotou todos da masmorra e saiu vivo!")
+
+else:
+    print("\nFim de jogo. Você foi derrotado em batalha.")
+    
+        
