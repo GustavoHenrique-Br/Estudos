@@ -1,0 +1,12 @@
+{
+    "nome": "Gustavo",
+    "hp": 185,
+    "hp_max": 185,
+    "ataque máximo": 40,
+    "level": 4,
+    "exp": 90,
+    "exp_maximo": 100,
+    "inventario": [
+        "Poção"
+    ]
+}

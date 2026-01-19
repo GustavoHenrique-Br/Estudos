@@ -1,5 +1,6 @@
 import random
 import json
+import sys
 
 #Criação do personagem
 class Personagem:
@@ -19,15 +20,12 @@ class Personagem:
             "nome": self.nome,
             "hp": self.hp,
             "hp_max": self.hp_max,
-            "ataque máximo": self.ataque,
+            "ataque máximo": self.ataque,   
             "level": self.level,
             "exp": self.exp,
             "exp_maximo": self.exp_max,
             "inventario": self.inventario
         }
-    
-    
-    
     #verificação se está vivo
     def esta_vivo(self):
         return self.hp > 0
@@ -80,6 +78,29 @@ class Personagem:
             ================================
             """)
 
+def salvar_jogo(heroi_para_salvar):
+    #transformar o objeto em dicionário
+    dados = heroi_para_salvar.to_dict()
+    #abre o arquivo
+    with open('save.json', 'w', encoding='utf8') as arquivo:
+        json.dump(dados, arquivo, indent=4, ensure_ascii=False)
+
+def carregar_jogo(heroi_alvo):
+    try:
+        with open('save.json', 'r', encoding='utf8') as arquivo:
+            dados = json.load(arquivo)
+            heroi_alvo.nome = dados["nome"]
+            heroi_alvo.hp = dados["hp"]
+            heroi_alvo.hp_max = dados["hp_max"]
+            heroi_alvo.ataque = dados["ataque máximo"] 
+            heroi_alvo.level = dados["level"]
+            heroi_alvo.exp = dados["exp"]
+            heroi_alvo.exp_max = dados["exp_maximo"]
+            heroi_alvo.inventario = dados["inventario"]
+            print("---> Save carregado <---")
+    except FileNotFoundError:
+        print("---> Nenhum arquivo de save encontrado <---")
+    
 
 def gerar_inimigos(numero_inimigos):
     lista_inimigos = ["Orc", "Goblin", "Dragão", "Golem", "Mutante"]
@@ -95,10 +116,11 @@ def gerar_inimigos(numero_inimigos):
         
 
 heroi = Personagem("Gustavo", 125, 25)
+carregar_jogo(heroi)
 inimigos = gerar_inimigos(5)
 
 
-print("----- ÍNICIO DA BATALHA -----")
+print("----- ÍNICIO DA JORNADA -----")
 heroi.mostrar_status()
 print("-" *50)
 
@@ -115,7 +137,7 @@ for inimigo in inimigos:
         print(f"\nTurno de {heroi.nome}")
 
         try:
-            ação = int(input("----> Atacar inimigo (1) | curar (2)? <---- "))
+            ação = int(input("----> Atacar inimigo (1) | curar (2) | Salvar (3)? <---- "))
         except ValueError:
             print("Isso não é um número")
         
@@ -123,9 +145,14 @@ for inimigo in inimigos:
             heroi.atacar(inimigo)
         elif ação == 2:
             heroi.curar()
+        elif ação == 3:
+            salvar_jogo(heroi)
+            print("---> Jogo salvo <---")
+            sys.exit()
         else:
-            print("Digito inválido, escolha 1 ou 2.")
+            print("Digito inválido, escolha 1, 2 ou 3.")
             continue
+
         
 
         if not inimigo.esta_vivo():

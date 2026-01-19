@@ -1,0 +1,18 @@
+[
+    {
+        "nome": "pc gamer",
+        "preco": 5000.0
+    },
+    {
+        "nome": "iphone",
+        "preco": 3400.0
+    },
+    {
+        "nome": "samsung",
+        "preco": 2200.0
+    },
+    {
+        "nome": "teclado",
+        "preco": 300.0
+    }
+]
